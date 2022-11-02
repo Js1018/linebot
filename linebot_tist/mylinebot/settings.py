@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-roop9m1^tj^wg)$^d)c7z#8nncn7iy2x01fy6b(1s^90f=kdxi
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '3f63-113-196-180-40.jp.ngrok.io'
+    'linebot-tist.onrender.com'    
     ]
 
 LINE_CHANNEL_ACCESS_TOKEN = 'Qf2iUSx1MXQ1LOropAVByUFBH5QUM+1GFk6VZ4HHCcvCQ+HSpErq6Y+CRlgcw28uv+bysl5DTZ+MJRKwwtc1tp+Nv79iqFtNOymu7BhnbJuKic6l5mdQHbbfEoWjNMGAirQbAYuZn3S5ag73jzmPPgdB04t89/1O/w1cDnyilFU='
