@@ -3,8 +3,8 @@ services:
   name: linebot-tist
   env: python
   repo: https://github.com/Js1018/linebot.git
-  buildCommand: cd examples/flask-echo;pip install gunicorn -r requirements.txt
-  startCommand: cd examples/flask-echo;gunicorn app:app
+  buildCommand: cd linebot_tist/biuanlinebot/;pip install gunicorn -r requirements.txt
+  startCommand: cd linebot_tist/biuanlinebot/;gunicorn app:app
   plan: free
   autoDeploy: false
   envVars:
