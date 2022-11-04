@@ -4,7 +4,7 @@ services:
   env: python
   repo: https://github.com/Js1018/linebot.git
   buildCommand: cd linebot_tist;pip install gunicorn -r requirements.txt
-  startCommand: cd linebot_tist/biuanlinebot;gunicorn manage:main
+  startCommand: cd linebot_tist;gunicorn manage:main
   plan: free
   autoDeploy: false
   envVars:
