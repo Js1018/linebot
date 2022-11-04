@@ -36,7 +36,8 @@ class BIuan(BIu):
         keywords=self.keywords  
         startdate  = self.startdate
         endate = self.endate
-        return [keywords+startdate+endate]
+       
+        return [str(keywords)+str(startdate)+str(endate)]
 #         keywords=parse.quote(keywords.encode('utf-8'))
 #         try:
 #             if startdate==0:
