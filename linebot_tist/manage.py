@@ -5,6 +5,9 @@ import sys
 
 
 def main():
+    path = '/mylinebot'
+    if path not in sys.path:
+        sys.path.append(path)
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mylinebot.settings')
     try:
