@@ -140,4 +140,4 @@ class BIuan(BIu):
             if d.days>92:
                 return "您所設定之查詢區間較長，基於系統效能考量，請用「全文檢索」功能查詢。"
             else:
-                return "搜索日期中沒有標案"+str(d)
+                return "搜索日期中沒有標案"
