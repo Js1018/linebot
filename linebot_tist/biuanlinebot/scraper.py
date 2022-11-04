@@ -134,12 +134,7 @@ class BIuan(BIu):
                     nam=nam+j+':'+ base[j].loc[i]+'\n'
                 nam=nam+'\n\n'
             return nam
-        except TypeError:
-            print('型別發生錯誤')
-        except NameError:
-            print('使用沒有被定義的對象')
-        except Exception:
-            print('不知道怎麼了，反正發生錯誤惹')
+#         except:
 #             d=endate-startdate
 
 #             if d.days>92:
