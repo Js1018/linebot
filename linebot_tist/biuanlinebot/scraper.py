@@ -134,10 +134,15 @@ class BIuan(BIu):
                     nam=nam+j+':'+ base[j].loc[i]+'\n'
                 nam=nam+'\n\n'
             return nam
-        except:
-            d=endate-startdate
+        except TypeError:
+            print('型別發生錯誤')
+        except NameError:
+            print('使用沒有被定義的對象')
+        except Exception:
+            print('不知道怎麼了，反正發生錯誤惹')
+#             d=endate-startdate
 
-            if d.days>92:
-                return "您所設定之查詢區間較長，基於系統效能考量，請用「全文檢索」功能查詢。"
-            else:
-                return "搜索日期中沒有標案"+str(d)
+#             if d.days>92:
+#                 return "您所設定之查詢區間較長，基於系統效能考量，請用「全文檢索」功能查詢。"
+#             else:
+#                 return "搜索日期中沒有標案"+str(d)
