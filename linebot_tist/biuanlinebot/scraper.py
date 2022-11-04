@@ -70,7 +70,8 @@ class BIuan(BIu):
         if (startdate!=0) & (endate!=0) :    
             url='https://web.pcc.gov.tw/prkms/tender/common/basic/readTenderBasic?firstSearch=true&searchType=basic&orgName=&orgId=&tenderName='+keywords+'&tenderId=&tenderType=TENDER_DECLARATION&tenderWay=TENDER_WAY_ALL_DECLARATION&dateType=isDate&tenderStartDate='+str(startdate.year)+'%2F'+str(startdate.month)+'%2F'+str(startdate.day)+'&tenderEndDate='+str(endate.year)+'%2F'+str(endate.month)+'%2F'+str(endate.day)
         elif (endate==0) & (endate==0)  :      
-
+            endate = datetime.date.today()
+            startdate = endate+datetime.timedelta(-6)
             url='https://web.pcc.gov.tw/prkms/tender/common/basic/readTenderBasic?firstSearch=true&searchType=basic&orgName=&orgId=&tenderName='+keywords+'&tenderId=&tenderType=TENDER_DECLARATION&tenderWay=TENDER_WAY_ALL_DECLARATION&dateType=isNow&tenderStartDate=+&tenderEndDate='
         elif startdate==0 :
             startdate = endate+datetime.timedelta(-6)
