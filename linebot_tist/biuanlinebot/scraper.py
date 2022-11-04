@@ -85,55 +85,55 @@ class BIuan(BIu):
         })
         with req.urlopen(request) as response:
             data = response.read().decode("utf-8")
-#         try:
-        bsobj_1 = bs(data, "lxml")
-        tables = bsobj_1.find_all('tbody')
-        trs = tables[1].find_all('tr')
-        trNum = 0
-        tdNum = 0
-        result = []
-        for i in range(len(trs)):
-            tds = trs[i].find_all('td')
-            if len(tds) < 5:  # 跳過沒有內容的 tr
-                continue
-            trNum += 1
+        try:
+            bsobj_1 = bs(data, "lxml")
+            tables = bsobj_1.find_all('tbody')
+            trs = tables[1].find_all('tr')
+            trNum = 0
             tdNum = 0
-            tempList = []
-            for j in tds:
-                if j.text == '\xa0':
+            result = []
+            for i in range(len(trs)):
+                tds = trs[i].find_all('td')
+                if len(tds) < 5:  # 跳過沒有內容的 tr
                     continue
-                tempText = "  ".join(j.text.split())  # 去掉文字中的 \xa0 空白字元
-                tempList.append(tempText)
-                tdNum += 1
-            result.append(tempList)
-        base = pd.DataFrame(result,columns=['項次','機關名稱','標案案號','傳輸次數','招標方式','採購性質','公告日期','截止日期','投標預算金額','功能選項'])
-        trNum = 0
-        tdNum = 0
-        result = []
-        for i in range(len(trs)):
-            tds = trs[i].find_all('script')
-            trNum += 1
+                trNum += 1
+                tdNum = 0
+                tempList = []
+                for j in tds:
+                    if j.text == '\xa0':
+                        continue
+                    tempText = "  ".join(j.text.split())  # 去掉文字中的 \xa0 空白字元
+                    tempList.append(tempText)
+                    tdNum += 1
+                result.append(tempList)
+            base = pd.DataFrame(result,columns=['項次','機關名稱','標案案號','傳輸次數','招標方式','採購性質','公告日期','截止日期','投標預算金額','功能選項'])
+            trNum = 0
             tdNum = 0
-            tempList = []
-            for j in tds:
-                if j.text == '\xa0':
-                    continue
-                tempText = "  ".join(j.text.split())  # 去掉文字中的 \xa0 空白字元
-                tempList.append(tempText)
-                tdNum += 1
-            result.append(tempList[0][tempList[0].find('(\"')+2:tempList[0].find('\");')])
-        base.insert(3,"標案名稱",result)
-        del base['功能選項']
-        nam=''
-        for i in range(base.shape[0]) :
-            for j in base.columns:
-                nam=nam+j+':'+ base[j].loc[i]+'\n'
-            nam=nam+'\n\n'
-        return nam
-#         except:
-        d=endate-startdate
+            result = []
+            for i in range(len(trs)):
+                tds = trs[i].find_all('script')
+                trNum += 1
+                tdNum = 0
+                tempList = []
+                for j in tds:
+                    if j.text == '\xa0':
+                        continue
+                    tempText = "  ".join(j.text.split())  # 去掉文字中的 \xa0 空白字元
+                    tempList.append(tempText)
+                    tdNum += 1
+                result.append(tempList[0][tempList[0].find('(\"')+2:tempList[0].find('\");')])
+            base.insert(3,"標案名稱",result)
+            del base['功能選項']
+            nam=''
+            for i in range(base.shape[0]) :
+                for j in base.columns:
+                    nam=nam+j+':'+ base[j].loc[i]+'\n'
+                nam=nam+'\n\n'
+            return nam
+        except:
+            d=endate-startdate
 
-        if d.days>92:
-            return "您所設定之查詢區間較長，基於系統效能考量，請用「全文檢索」功能查詢。"
-        else:
-            return "搜索日期中沒有標案"+str(d)
+            if d.days>92:
+                return "您所設定之查詢區間較長，基於系統效能考量，請用「全文檢索」功能查詢。"
+            else:
+                return "搜索日期中沒有標案"+str(d)
