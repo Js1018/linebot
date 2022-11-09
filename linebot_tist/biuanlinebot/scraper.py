@@ -9,18 +9,31 @@ from bs4 import BeautifulSoup as bs
  
 # 抽象類別
 class BIu(ABC):
- 
     def __init__(self,keywords):
-        if len(keywords)==3:
+   
+        if len(keywords)==4:
             self.keywords = keywords[0]
-            self.startdate = keywords[1]
-            self.endate = keywords[2]  
+            self.roctrgCate = keywords[1]  
+            self.startdate = keywords[2]
+            self.endate = keywords[3]  
+        elif len(keywords)==3:
+            self.keywords = keywords[0]
+            self.roctrgCate = keywords[1]  
+            self.startdate = keywords[2]
+            self.endate = 0
         elif len(keywords)==2:
             self.keywords = keywords[0]
-            self.startdate = keywords[1]
+            if len(keywords[1])>4:
+                 self.startdate = keywords[1]      
+                 self.roctrgCate = ''
+            else:
+                 self.startdate =  0
+                 self.roctrgCate = keywords[1] 
+            self.startdate = 0
             self.endate = 0
         elif len(keywords)==1:
             self.keywords = keywords[0]
+            self.roctrgCate = ''
             self.startdate = 0
             self.endate = 0
  
@@ -36,7 +49,18 @@ class BIuan(BIu):
         keywords=self.keywords  
         startdate  = self.startdate
         endate = self.endate
+        roctrgCate = self.roctrgCate
         keywords=parse.quote(keywords.encode('utf-8'))
+        
+        if roctrgCate=='工程類':
+            roctrgCate='&radProctrgCate=RAD_PROCTRG_CATE_1'
+        elif roctrgCate=='財務類':
+            roctrgCate='&radProctrgCate=RAD_PROCTRG_CATE_2'
+        elif roctrgCate=='勞務類':
+            roctrgCate='&radProctrgCate=RAD_PROCTRG_CATE_3'
+        else:
+            roctrgCate=''
+        
         try:
             if startdate==0:
                 pass 
@@ -80,7 +104,7 @@ class BIuan(BIu):
             endate = datetime.date.today()
             url='https://web.pcc.gov.tw/prkms/tender/common/basic/readTenderBasic?firstSearch=true&searchType=basic&orgName=&orgId=&tenderName='+keywords+'&tenderId=&tenderType=TENDER_DECLARATION&tenderWay=TENDER_WAY_ALL_DECLARATION&dateType=isDate&tenderStartDate='+str(startdate.year)+'%2F'+str(startdate.month)+'%2F'+str(startdate.day)+'&tenderEndDate='+str(endate.year)+'%2F'+str(endate.month)+'%2F'+str(endate.day)
 
-        request = req.Request(url, headers={
+        request = req.Request(url+roctrgCate, headers={
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"
         })
         with req.urlopen(request) as response:
